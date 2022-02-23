@@ -293,6 +293,17 @@ wp_enqueue_script( 'wp-color-picker' );
                 </td>
             </tr>
             <tr>
+                <th scope="row"><?php _e( '文章无特色图时随机显示图像', 'mdx' ); ?></th>
+                <td>
+                    <?php $mdx_v_random_post_def_img=mdx_get_option('md_random_post_def_img');?>
+                    <fieldset>
+                        <label><input type="radio" name="md_random_post_def_img" value="true" <?php if($mdx_v_random_post_def_img=='true'){?>checked="checked"<?php }?>> <?php echo $trueon;?></label><br>
+                        <label><input type="radio" name="md_random_post_def_img" value="false" <?php if($mdx_v_random_post_def_img=='false'){?>checked="checked"<?php }?>> <?php echo $falseoff;?></label><br>
+                        <p class="description"><?php _e('yo, 开启后，文章无特色图像时将随机显示Paxos挑选的默认图像，影响文章列表和文章页。', 'mdx');?></p>
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
                 <th scope="row"><?php _e( '文章默认特色图像', 'mdx' ); ?></th>
                 <td>
                     <input name="mdx_post_def_img_url" type="text" id="mdx_post_def_img_url" value="<?php echo esc_attr( mdx_get_option( 'mdx_post_def_img_url' ) ) ?>" class="regular-text">

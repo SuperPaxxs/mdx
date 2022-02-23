@@ -249,8 +249,15 @@ function mdx_load_blocks() {
 }
 add_action('enqueue_block_editor_assets', 'mdx_load_blocks');
 
-function mdx_get_post_default_url() {
-    return mdx_get_option('mdx_post_def_img_url') ? mdx_get_option('mdx_post_def_img_url') : get_template_directory_uri().'/img/dpic.jpg';
+function mdx_get_post_default_url()
+{
+    // 随机图片
+    if (mdx_get_option('md_random_post_def_img')=='true') {
+        return get_template_directory_uri() . '/img/posts/fluent'.mt_rand(1,16).'.jpg';
+        
+    }else{
+        return mdx_get_option('mdx_post_def_img_url') ? mdx_get_option('mdx_post_def_img_url') : get_template_directory_uri() . '/img/dpic.jpg';
+    }
 }
 
 //Ajax评论
