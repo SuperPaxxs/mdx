@@ -23,21 +23,6 @@ function mdx_display_sub_function_two(){
 function mdx_display_sub_function_three(){
     wp_register_style('mdx_admin', get_template_directory_uri().'/includes/admin.css');
     wp_enqueue_style('mdx_admin');
-    if(function_exists('file_get_contents')){
-        $opt2 = array(
-            'http'=>array('method'=>"GET",'header'=>"User-Agent: MDxThemeinWordPress\r\n")
-        );
-        $contexts2 = stream_context_create($opt2);
-        $lang = empty(get_option("WPLANG")) ? "en_US" : get_option("WPLANG");
-        $mdx_data2 = file_get_contents('https://mdxupdate.flyhigher.top/mdx/getnews?lang='.$lang.'&ver='.get_option('mdx_version'), false, $contexts2);
-        $mdx_news = '';
-        if($mdx_data2 != ''){
-            $mdx_news = '<div class="notice notice-info">
-            <p>'.__('通知：', 'mdx').$mdx_data2.'</p></div>';
-        }
-    }else{
-        $mdx_news = '';
-    }
 
     if(function_exists('file_get_contents')){
         $mdx_data = json_decode(file_get_contents('https://cdn.jsdelivr.net/gh/axton-the-robot/mdx-assets@latest/info.json', false));
@@ -49,16 +34,8 @@ function mdx_display_sub_function_three(){
 
     ($mdx_now_version != get_option('mdx_version')) ? $mdx_update_notice = '<p style="font-size:15px;"><strong>'.__('新版本已经发布。去<a href="update-core.php">更新</a>。', 'mdx').'</strong></p>' : $mdx_update_notice = '';
 
-    $mdx_php_content = file_get_contents(get_theme_root()."/mdx/footer.php");
-    $mdx_results = strpos($mdx_php_content, 'href="https://flyhigher.top"');
-    $mdx_ifedit = '';
-    if($mdx_results === false){
-        $mdx_ifedit = '<div class="notice notice-error">
-        <p>'.__("警告：你可能修改了主题底部的版权信息，请将其重新改正。MDx主题要求你保留版权信息。", "mdx").'</p></div>';
-    }
-
 echo '<div class="wrap">
-<h1>'.__('MDx 主题 - 关于', 'mdx').'</h1>'.$mdx_ifedit.$mdx_news.'
+<h1>'.__('MDx 主题 - 关于', 'mdx').'</h1>
 <p class="mdx-admin-img"><img src="../wp-content/themes/mdx/img/admin.jpg"></p>
 <h2 style="font-size:19px;">'.__('感谢使用 MDx 主题', 'mdx').'</h2>
 <p style="font-size:15px;">'.__('我是 Axton Yao，这个主题由我开发。我的网站是', 'mdx').' <a href="https://flyhigher.top" target="_blank">flyhigher.top</a>'.__('。', 'mdx').'</p>
@@ -90,19 +67,8 @@ add_action('admin_menu','remove_submenu');
 //初始化主题设置，只有第一次激活主题时调用
 function mdx_init_theme(){
     if(!get_option('mdx_first_init')){
-        //用途仅为统计安装量 mdx_key为发送请求时间戳的md5值 mdx_first_init不会在除此外的任何地方被调用 请保持克制不要恶意访问接口
-        if(function_exists('file_get_contents')){
-            $opt = array(
-                'http'=>array('method'=>"GET",'header'=>"User-Agent: MDxThemeinWordPress\r\n")
-            );
-            $contexts = stream_context_create($opt);
-            $mdx_token = file_get_contents('https://mdxupdate.flyhigher.top/mdx/gettoken/', false, $contexts);
-            $mdx_key = file_get_contents('https://mdxupdate.flyhigher.top/mdx/getkey/index.php?hostname='.$_SERVER['HTTP_HOST'].'&token='.md5($mdx_token), false, $contexts);
-            update_option('mdx_first_init', md5($mdx_key));
-        }else{
-            add_action('admin_notices', 'mdx_cant_notice');
-            update_option('mdx_first_init', 'false');
-        }
+        add_action('admin_notices', 'mdx_cant_notice');
+        update_option('mdx_first_init', 'false');
 
         include_once('includes/admin_init_fn.php');
         include_once('includes/admin_init_style.php');
