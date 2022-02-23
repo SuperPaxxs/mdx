@@ -91,6 +91,8 @@ wp_enqueue_script( 'wp-color-picker' );
 		} else {
 			mdx_update_option( 'mdx_post_def_img_url', esc_url_raw( $_POST['mdx_post_def_img_url'] ) );
 		}
+		// 是否开启随机图像显示
+		mdx_update_option('md_random_post_def_img',sanitize_text_field($_POST['md_random_post_def_img']));
 		mdx_update_option( 'mdx_gravatar_actived', sanitize_text_field( $_POST['mdx_gravatar_actived'] ) );
 		mdx_update_option( 'mdx_link_rand_order', sanitize_text_field( $_POST['mdx_link_rand_order'] ) );
 		mdx_update_option( 'mdx_title_med', sanitize_text_field( $_POST['mdx_title_med'] ) );
