@@ -113,6 +113,8 @@ $mdx_default_values = array(
     'mdx_styles_footer' => '1',
     'mdx_footer_say' => 'Hello => MDx!',
     'mdx_footer' => '',
-    'mdx_hide_footer' => 'false'
+    'mdx_hide_footer' => 'false',
+    // 无特色图时随机显示
+    'md_random_post_def_img' => 'true'
 );
 ?>
