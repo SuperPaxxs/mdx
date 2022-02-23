@@ -74,7 +74,8 @@ $mdx_index_img=mdx_get_option('mdx_index_img');$mdx_side_img=mdx_get_option('mdx
         <div class="mdui-text-color-white-text mdui-color-theme mdui-typo-display-2 mdui-valign PostTitle<?php if($mdx_image_url==""){?> mdx-pni-t0<?php }if(mdx_get_option('mdx_post_time_positon') === 'title'){?> date-in-title<?php }?>" itemprop="name headline" itemtype="http://schema.org/BlogPosting"><h1 class="mdui-typo-display-2 mdui-center"><?php the_title();?></h1><?php if(mdx_get_option('mdx_post_time_positon') === 'title'){?><div class="time-in-post-title" itemprop="datePublished"><?php if(mdx_get_option('mdx_post_edit_time')==="post"){?><i class="mdui-icon material-icons info-icon">&#xe192;</i> <?php the_time('Y-m-d');}else{?><i class="mdui-icon material-icons info-icon">&#xe3c9;</i> <?php the_modified_time('Y-m-d');}?></div><?php }?></div>
         <div class="PostTitleFill mdui-color-theme"></div>
       <div class="<?php if($mdx_widget){?>mdx-tools-up-in <?php }?>PostMain<?php if($mdx_image_url==""){?> mdx-pni-am0<?php }if(mdx_get_option('mdx_post_time_positon') === 'title'){?> date-in-title-post<?php }?>">
-            <div class="ArtMain0 mdui-center mdui-shadow-12">
+            <!-- <div class="ArtMain0 mdui-center mdui-shadow-12"> -->
+            <div class="ArtMain0 mdui-center <?php if(mdx_get_option('md_card_show_shadow')=='false'){?> post-item-new-shadow<?php } else {?> mdui-shadow-12 <?php } ?>">
             <?php if($mdx_image_url!=""){?>
             <img class="PostMainImg0" alt="<?php the_title(); ?>" src="<?php echo $mdx_image_url;?>"><?php }else{?>
                 <div class="mdx-post-no-img-fill"></div>
@@ -175,7 +176,8 @@ $mdx_index_img=mdx_get_option('mdx_index_img');$mdx_side_img=mdx_get_option('mdx
         </div></header>
         <div class="mdui-text-color-white-text mdui-typo-display-2 mdui-valign PostTitle PostTitle2<?php if(mdx_get_option('mdx_post_time_positon') === 'title'){?> date-in-title<?php }?>" itemprop="name headline" itemtype="http://schema.org/BlogPosting"><h1 class="mdui-typo-display-2 mdui-center"><?php the_title();?></h1><?php if(mdx_get_option('mdx_post_time_positon') === 'title'){?><div class="time-in-post-title" itemprop="datePublished"><?php if(mdx_get_option('mdx_post_edit_time')==="post"){?><i class="mdui-icon material-icons info-icon">&#xe192;</i> <?php the_time('Y-m-d');}else{?><i class="mdui-icon material-icons info-icon">&#xe3c9;</i> <?php the_modified_time('Y-m-d');}?></div><?php }?></div>
         <div class="<?php if($mdx_widget){?>mdx-tools-up-in <?php }?>PostMain PostMain2">
-            <div class="ArtMain0 mdui-center mdui-shadow-12">
+            <!-- <div class="ArtMain0 mdui-center mdui-shadow-12"> -->
+            <div class="ArtMain0 mdui-center <?php if(mdx_get_option('md_card_show_shadow')=='false'){?> post-item-new-shadow<?php } else {?> mdui-shadow-12 <?php } ?>">
                 <article class="<?php $post_classes=get_post_class();foreach($post_classes as $classes){echo $classes." ";}?> mdui-typo" id="post-<?php the_ID();?>" itemprop="articleBody">
                 <?php while(have_posts()):the_post();the_content();?>
                 </article>
