@@ -87,8 +87,8 @@ function readRes(data, ifSession) {
     }
     ele('.OutOfsearchBox').innerHTML = '<div class="searchBoxFill"></div>';
     let inputValue = ele(".seainput").value;
-    if (inputValue === "Axton" || inputValue === "axton" || inputValue === "无垠" || inputValue === "flyhigher" || inputValue === "Flyhigher") {
-        data2.unshift({ "title": { "rendered": "无垠" }, "date": "Forever", "link": "https://flyhigher.top", "excerpt": { "rendered": "飞翔的天空无限大" } });
+    if (inputValue === "Paxos" || inputValue === "Paxxs" || inputValue === "lab" || inputValue === "chenjunyu19" || inputValue === "morfans") {
+        data2.unshift({ "title": { "rendered": "MorFans Lab" }, "date": "Forever", "link": "https://lab.morfans.cn", "excerpt": { "rendered": "有爱·共成长" } });
     }
     if (data2.length > 0) {
         let finalHTML = '';
