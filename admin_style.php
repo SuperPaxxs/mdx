@@ -120,6 +120,8 @@ wp_enqueue_script( 'wp-color-picker' );
 		mdx_update_option( 'mdx_svg_color', sanitize_text_field( $_POST['mdx_svg_color'] ) );
 		mdx_update_option( 'mdx_tags_color', sanitize_text_field( $_POST['mdx_tags_color'] ) );
 		mdx_update_option( 'mdx_styles_footer', sanitize_text_field( $_POST['mdx_styles_footer'] ) );
+		// DIY 页脚区域
+		mdx_update_option('mdx_footer_custom', htmlentities( stripslashes($_POST['mdx_footer_custom'])) );
 		if ( $_POST['mdx_footer_say'] === 'jkrQnlLIIa6K4b$DuR' ) {
 			mdx_update_option( 'mdx_hide_footer', mdx_get_option( 'mdx_hide_footer' ) === 'true' ? 'false' : 'true' );
 		} else {
@@ -659,6 +661,14 @@ wp_enqueue_script( 'wp-color-picker' );
                         <option value="3" <?php if ( $mdx_v_styles_footer == '3' ){ ?>selected="selected"<?php } ?>><?php _e( '现代', 'mdx' ); ?></option>
                     </select>
                     <p class="description"><?php _e( '在此设定页脚样式。<strong>如果选择“简单”样式，那么页脚格言将不会显示。</strong>', 'mdx' ); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php _e( '页脚底部信息', 'mdx' ); ?></th>
+                <td>
+                    <input name="mdx_footer_custom" type="text" id="md_footer_custom"
+                        value="<?php echo esc_attr(mdx_get_option('mdx_footer_custom')) ?>" class="regular-text">
+                    <p class="description"><?php _e( '自定义主题页脚底部区域，设定页脚格言可以尝试使用神秘值：【jkrQnlLIIa6K4b$DuR】切换', 'mdx' ); ?></p>
                 </td>
             </tr>
             <tr>

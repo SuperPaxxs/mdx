@@ -118,5 +118,7 @@ $mdx_default_values = array(
     'md_random_post_def_img' => 'true',
     // 页面伪静态
     'md_page_html' => 'false',
+    // DIY 页脚信息
+    'mdx_footer_custom' => '<a href="https://github.com/SuperPaxxs/mdx" target="_blank" class="click">MDx</a> Pro Plus, Made with ❤ By AxtonYao'
 );
 ?>
