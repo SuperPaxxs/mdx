@@ -115,6 +115,8 @@ $mdx_default_values = array(
     'mdx_footer' => '',
     'mdx_hide_footer' => 'false',
     // 无特色图时随机显示
-    'md_random_post_def_img' => 'true'
+    'md_random_post_def_img' => 'true',
+    // 页面伪静态
+    'md_page_html' => 'false',
 );
 ?>
