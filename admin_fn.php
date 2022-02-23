@@ -92,6 +92,8 @@ wp_enqueue_media();
 		mdx_update_option( 'mdx_use_cdn', sanitize_text_field( $_POST['mdx_use_cdn'] ) );
 		mdx_update_option( 'mdx_custom_cdn_root', esc_url_raw( $_POST['mdx_custom_cdn_root'] ) );
 		mdx_update_option( 'mdx_jquery', sanitize_text_field( $_POST['mdx_jquery'] ) );
+		// 页面伪静态
+		mdx_update_option('md_page_html', sanitize_text_field($_POST['md_page_html']));
 		?>
         <div class="notice notice-success is-dismissible">
             <p><?php _e( '设置已保存。', 'mdx' ); ?></p>
@@ -838,6 +840,19 @@ wp_enqueue_media();
                     <input name="mdx_wangan_num" type="text" id="mdx_wangan_num"
                            value="<?php echo esc_attr( mdx_get_option( 'mdx_wangan_num' ) ) ?>" class="regular-text">
                     <p class="description"><?php _e( '在这里填写的公安备案号会显示在页脚并自动链接到 <i>全国互联网安全管理服务平台</i> ，留空则不显示。如果你的服务器在中国大陆境内且进行了公安备案，这个选项可能会很有用。', 'mdx' ); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php _e( 'wordpress pages 开启伪静态', 'mdx' ); ?></th>
+                <td>
+                    <?php $mdx_v_page_html = mdx_get_option('md_page_html'); ?>
+                        <fieldset>
+                            <label><input type="radio" name="md_page_html" value="true" <?php if ($mdx_v_page_html == 'true'){ ?>checked="checked"<?php } ?>> <?php echo $trueon; ?>
+                            </label><br>
+                            <label><input type="radio" name="md_page_html" value="false" <?php if ($mdx_v_page_html == 'false'){ ?>checked="checked"<?php } ?>> <?php echo $falseoff; ?>
+                            </label><br>
+                            <p class="description"><?php _e( '开启后，需要去固定连接那保存一下（无需修改任何设定）【MorFans 博客页面有html后缀，需要开启这项】', 'mdx' ); ?></p>
+                        </fieldset>
                 </td>
             </tr>
             <tr>
