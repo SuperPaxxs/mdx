@@ -76,6 +76,7 @@ $mdx_default_values = array(
     'mdx_default_style' => '1',
     'mdx_post_list_width' => 'normal',
     'mdx_index_show' => '0',
+    'md_card_show_shadow' => 'false',
     'mdx_post_style' => '0',
     'mdx_post_time_positon' => 'foot',
     'mdx_post_nav_style' => '1',
