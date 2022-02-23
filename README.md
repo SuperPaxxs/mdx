@@ -6,7 +6,7 @@
 <img src="https://acdn.flyhigher.top/mdx-2020-new.jpg" alt="MDx">
 </p>
 
-<h1 align="center"><a href="https://mdx.flyhigher.top" target="_blank">MDx</a></h1>
+<h1 align="center">MDx Pro Plus</h1>
 
 > Looks light, power inside.
 
@@ -18,6 +18,25 @@
 <a href="https://github.com/yrccondor/mdx/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-GPL%20V3.0-orange.svg?style=flat-square"/></a>
 <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fyrccondor%2Fmdx?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fyrccondor%2Fmdx.svg?type=shield"/></a>
 </p>
+
+## Pro Plus 分支区别
+
+> 针对自己站点偏好特调的MDxb版本，功能可能不具有普遍适应性或与原作者理念相悖
+
+添加的功能：
+- [x] 随机特色图像-Fluent风格
+- [x] 文章列表等切换 md 阴影和 Paxos 特调
+- [x] 自定义页脚
+- [x] Gravatar CDN 支持
+- [x] pages 伪静态
+- [ ] 文章样式调整
+
+添加后又取消的功能：
+- 三角动效
+- 分享按钮动效
+
+取消的功能：
+- 主题注册
 
 
 ## Contents
