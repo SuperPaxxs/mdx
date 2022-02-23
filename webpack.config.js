@@ -93,9 +93,9 @@ module.exports = {
         }),
         new webpack.BannerPlugin({
             banner: `/*
-Theme Name: MDx
-Theme URI: https://flyhigher.top/develop/788.html
-Description: MDx - Material Design 风格的 WordPress 主题
+Theme Name: MDx Pro Plus
+Theme URI: https://github.com/SuperPaxxs/mdx
+Description: 基于MDx修改的自定义版本
 Version: ${mdxVersion}
 Author: AxtonYao
 Author URI: https://flyhigher.top
