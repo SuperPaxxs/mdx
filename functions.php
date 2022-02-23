@@ -73,18 +73,8 @@ remove_filter('single_post_title', 'wptexturize');
 
 //初始化
 if (!get_option('mdx_first_init')) {
-    //用途仅为统计安装量 mdx_key为发送请求时间戳的md5值 mdx_first_init不会在除此外的任何地方被调用
-    if (function_exists('file_get_contents')) {
-        $opt = array(
-            'http' => array('method' => "GET", 'header' => "User-Agent: MDxThemeinWordPress\r\n")
-        );
-        $contexts = stream_context_create($opt);
-        $mdx_token = file_get_contents('https://mdxupdate.flyhigher.top/mdx/gettoken/', false, $contexts);
-        $mdx_key = file_get_contents('https://mdxupdate.flyhigher.top/mdx/getkey/index.php?hostname='.$_SERVER['HTTP_HOST'].'&token='.md5($mdx_token), false, $contexts);
-        update_option('mdx_first_init', 'fun-'.md5($mdx_key));
-    } else {
-        update_option('mdx_first_init', 'false');
-    }
+    //不统计了，随便加个值
+    update_option('mdx_first_init', 'fun-'.md5("oh-my-mdx"));
     include_once('includes/admin_init_fn.php');
 }
 
@@ -127,7 +117,7 @@ $files_root = '';
 if (mdx_get_option("mdx_use_cdn") === "custom") {
     $files_root = mdx_get_option("mdx_custom_cdn_root");
 } else if (mdx_get_option("mdx_use_cdn") === "jsdelivr") {
-    $files_root = 'https://cdn.jsdelivr.net/gh/yrccondor/mdx@'.$cdn_commit_version;
+    $files_root = 'https://cdn.jsdelivr.net/gh/SuperPaxxs/mdx@'.$cdn_commit_version;
 } else {
     $files_root = get_template_directory_uri();
 }
@@ -249,8 +239,15 @@ function mdx_load_blocks() {
 }
 add_action('enqueue_block_editor_assets', 'mdx_load_blocks');
 
-function mdx_get_post_default_url() {
-    return mdx_get_option('mdx_post_def_img_url') ? mdx_get_option('mdx_post_def_img_url') : get_template_directory_uri().'/img/dpic.jpg';
+function mdx_get_post_default_url()
+{
+    // 随机图片
+    if (mdx_get_option('md_random_post_def_img')=='true') {
+        return get_template_directory_uri() . '/img/posts/fluent'.mt_rand(1,16).'.jpg';
+        
+    }else{
+        return mdx_get_option('mdx_post_def_img_url') ? mdx_get_option('mdx_post_def_img_url') : get_template_directory_uri() . '/img/dpic.jpg';
+    }
 }
 
 //Ajax评论
@@ -1003,5 +1000,57 @@ function mdx_add_editor_buttons($buttons) {
     return $buttons;
 }
 add_filter("mce_buttons_2", "mdx_add_editor_buttons");
+
+// 页面伪静态
+if( mdx_get_option('md_page_html') == 'true'):
+    add_action('init', 'html_page_permalink', -1);
+        register_activation_hook(__FILE__, 'active');
+        register_deactivation_hook(__FILE__, 'deactive');
+        function html_page_permalink() {
+            global $wp_rewrite;
+            if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
+                $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
+            }
+        }
+        add_filter('user_trailingslashit', 'no_page_slash', 66, 2);
+        function no_page_slash($string, $type) {
+            global $wp_rewrite;
+            if ($wp_rewrite->using_permalinks() && $wp_rewrite->use_trailing_slashes == true && $type == 'page') {
+                return untrailingslashit($string);
+            } else {
+                return $string;
+            }
+        }
+        function active() {
+            global $wp_rewrite;
+            if (!strpos($wp_rewrite->get_page_permastruct() , '.html')) {
+                $wp_rewrite->page_structure = $wp_rewrite->page_structure . '.html';
+            }
+            $wp_rewrite->flush_rules();
+        }
+        function deactive() {
+            global $wp_rewrite;
+            $wp_rewrite->page_structure = str_replace(".html", "", $wp_rewrite->page_structure);
+            $wp_rewrite->flush_rules();
+        }
+endif;
+
+// gravatar 使用 CDN 加速
+function gravatar_cdn($url){
+    $cdn = mdx_get_option("mdx_gravatar_cdn");
+    $cdn = str_replace("http://","",$cdn);
+    $cdn = str_replace("https://","",$cdn);
+    // 如果不是 / 结尾，加上
+    if (substr($cdn,-1) != '/'){
+        $cdn .= "/";
+    }
+    // 替换 gravatar
+    $url = preg_replace("/\/\/(.*?).gravatar.com\/avatar\//","//".$cdn,$url);
+    return $url;
+}
+// 如果不为空就启用 CDN
+if (mdx_get_option("mdx_gravatar_cdn") != ''){
+    add_filter('get_avatar_url', 'gravatar_cdn');
+}
 
 ?>

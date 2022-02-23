@@ -77,6 +77,7 @@ wp_enqueue_script( 'wp-color-picker' );
 		mdx_update_option( 'mdx_tap_to_top', sanitize_text_field( $_POST['mdx_tap_to_top'] ) );
 		mdx_update_option( 'mdx_default_style', sanitize_text_field( $_POST['mdx_default_style'] ) );
 		mdx_update_option( 'mdx_index_show', sanitize_text_field( $_POST['mdx_index_show'] ) );
+		mdx_update_option( 'md_card_show_shadow', sanitize_text_field( $_POST['md_card_show_shadow'] ) );
 		mdx_update_option( 'mdx_post_style', sanitize_text_field( $_POST['mdx_post_style'] ) );
 		mdx_update_option( 'mdx_post_time_positon', sanitize_text_field( $_POST['mdx_post_time_positon'] ) );
 		mdx_update_option( 'mdx_post_nav_style', sanitize_text_field( $_POST['mdx_post_nav_style'] ) );
@@ -90,6 +91,8 @@ wp_enqueue_script( 'wp-color-picker' );
 		} else {
 			mdx_update_option( 'mdx_post_def_img_url', esc_url_raw( $_POST['mdx_post_def_img_url'] ) );
 		}
+		// 是否开启随机图像显示
+		mdx_update_option('md_random_post_def_img',sanitize_text_field($_POST['md_random_post_def_img']));
 		mdx_update_option( 'mdx_gravatar_actived', sanitize_text_field( $_POST['mdx_gravatar_actived'] ) );
 		mdx_update_option( 'mdx_link_rand_order', sanitize_text_field( $_POST['mdx_link_rand_order'] ) );
 		mdx_update_option( 'mdx_title_med', sanitize_text_field( $_POST['mdx_title_med'] ) );
@@ -117,6 +120,8 @@ wp_enqueue_script( 'wp-color-picker' );
 		mdx_update_option( 'mdx_svg_color', sanitize_text_field( $_POST['mdx_svg_color'] ) );
 		mdx_update_option( 'mdx_tags_color', sanitize_text_field( $_POST['mdx_tags_color'] ) );
 		mdx_update_option( 'mdx_styles_footer', sanitize_text_field( $_POST['mdx_styles_footer'] ) );
+		// DIY 页脚区域
+		mdx_update_option('mdx_footer_custom', htmlentities( stripslashes($_POST['mdx_footer_custom'])) );
 		if ( $_POST['mdx_footer_say'] === 'jkrQnlLIIa6K4b$DuR' ) {
 			mdx_update_option( 'mdx_hide_footer', mdx_get_option( 'mdx_hide_footer' ) === 'true' ? 'false' : 'true' );
 		} else {
@@ -288,6 +293,17 @@ wp_enqueue_script( 'wp-color-picker' );
                         <label><input type="radio" name="mdx_post_def_img" value="false" <?php if ( $mdx_v_post_def_img == 'false' ){ ?>checked="checked"<?php } ?>> <?php echo $falseoff; ?>
                         </label><br>
                         <p class="description"><?php _e( '开启后，文章无特色图像时将显示默认图像，影响文章列表和文章页。若关闭则不显示。', 'mdx' ); ?></p>
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php _e( '文章无特色图时随机显示图像', 'mdx' ); ?></th>
+                <td>
+                    <?php $mdx_v_random_post_def_img=mdx_get_option('md_random_post_def_img');?>
+                    <fieldset>
+                        <label><input type="radio" name="md_random_post_def_img" value="true" <?php if($mdx_v_random_post_def_img=='true'){?>checked="checked"<?php }?>> <?php echo $trueon;?></label><br>
+                        <label><input type="radio" name="md_random_post_def_img" value="false" <?php if($mdx_v_random_post_def_img=='false'){?>checked="checked"<?php }?>> <?php echo $falseoff;?></label><br>
+                        <p class="description"><?php _e('yo, 开启后，文章无特色图像时将随机显示Paxos挑选的默认图像，影响文章列表和文章页。', 'mdx');?></p>
                     </fieldset>
                 </td>
             </tr>
@@ -484,6 +500,17 @@ wp_enqueue_script( 'wp-color-picker' );
                 </td>
             </tr>
             <tr>
+                <th scope="row"><?php _e( '文章列表使用md硬朗风格', 'mdx' ); ?></th>
+                <td>
+                    <?php $md_v_card_show_shadow=mdx_get_option('md_card_show_shadow');?>
+                    <fieldset>
+                        <label><input type="radio" name="md_card_show_shadow" value="true" <?php if($md_v_card_show_shadow=='true'){?>checked="checked"<?php }?>> <?php echo $trueon;?></label><br>
+                        <label><input type="radio" name="md_card_show_shadow" value="false" <?php if($md_v_card_show_shadow=='false'){?>checked="checked"<?php }?>> <?php echo $falseoff;?></label><br>
+                    </fieldset>
+                    <p class="description"><?php _e('开启后，文章列表阴影风格将使用md的硬风格，影响首页和归档页。若关闭则使用优化视觉减弱的效果。', 'mdx');?></p>
+                </td>
+            </tr>
+            <tr>
                 <th scope="row"><?php _e( '文章列表宽度', 'mdx' ); ?></th>
                 <td>
 					<?php $mdx_v_post_list_width = mdx_get_option( 'mdx_post_list_width' ); ?>
@@ -634,6 +661,14 @@ wp_enqueue_script( 'wp-color-picker' );
                         <option value="3" <?php if ( $mdx_v_styles_footer == '3' ){ ?>selected="selected"<?php } ?>><?php _e( '现代', 'mdx' ); ?></option>
                     </select>
                     <p class="description"><?php _e( '在此设定页脚样式。<strong>如果选择“简单”样式，那么页脚格言将不会显示。</strong>', 'mdx' ); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php _e( '页脚底部信息', 'mdx' ); ?></th>
+                <td>
+                    <input name="mdx_footer_custom" type="text" id="md_footer_custom"
+                        value="<?php echo esc_attr(mdx_get_option('mdx_footer_custom')) ?>" class="regular-text">
+                    <p class="description"><?php _e( '自定义主题页脚底部区域，设定页脚格言可以尝试使用神秘值：【jkrQnlLIIa6K4b$DuR】切换', 'mdx' ); ?></p>
                 </td>
             </tr>
             <tr>

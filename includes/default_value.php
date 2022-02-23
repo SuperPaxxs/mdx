@@ -76,6 +76,7 @@ $mdx_default_values = array(
     'mdx_default_style' => '1',
     'mdx_post_list_width' => 'normal',
     'mdx_index_show' => '0',
+    'md_card_show_shadow' => 'false',
     'mdx_post_style' => '0',
     'mdx_post_time_positon' => 'foot',
     'mdx_post_nav_style' => '1',
@@ -112,6 +113,12 @@ $mdx_default_values = array(
     'mdx_styles_footer' => '1',
     'mdx_footer_say' => 'Hello => MDx!',
     'mdx_footer' => '',
-    'mdx_hide_footer' => 'false'
+    'mdx_hide_footer' => 'false',
+    // 无特色图时随机显示
+    'md_random_post_def_img' => 'true',
+    // 页面伪静态
+    'md_page_html' => 'false',
+    // DIY 页脚信息
+    'mdx_footer_custom' => '<a href="https://github.com/SuperPaxxs/mdx" target="_blank" class="click">MDx</a> Pro Plus, Made with ❤ By AxtonYao'
 );
 ?>
