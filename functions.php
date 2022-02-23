@@ -1045,4 +1045,22 @@ if( mdx_get_option('md_page_html') == 'true'):
         }
 endif;
 
+// gravatar 使用 CDN 加速
+function gravatar_cdn($url){
+    $cdn = mdx_get_option("mdx_gravatar_cdn");
+    $cdn = str_replace("http://","",$cdn);
+    $cdn = str_replace("https://","",$cdn);
+    // 如果不是 / 结尾，加上
+    if (substr($cdn,-1) != '/'){
+        $cdn .= "/";
+    }
+    // 替换 gravatar
+    $url = preg_replace("/\/\/(.*?).gravatar.com\/avatar\//","//".$cdn,$url);
+    return $url;
+}
+// 如果不为空就启用 CDN
+if (mdx_get_option("mdx_gravatar_cdn") != ''){
+    add_filter('get_avatar_url', 'gravatar_cdn');
+}
+
 ?>

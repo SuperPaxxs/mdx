@@ -83,6 +83,7 @@ wp_enqueue_media();
 		mdx_update_option( 'mdx_ad', htmlentities( stripslashes( $_POST['mdx_ad'] ) ) );
 		mdx_update_option( 'mdx_logged_in_ad', sanitize_text_field( $_POST['mdx_logged_in_ad'] ) );
 		mdx_update_option( 'mdx_seo_key', sanitize_text_field( $_POST['mdx_seo_key'] ) );
+		mdx_update_option( 'mdx_gravatar_cdn', sanitize_text_field( $_POST['mdx_gravatar_cdn'] ) );
 		mdx_update_option( 'mdx_auto_des', sanitize_text_field( $_POST['mdx_auto_des'] ) );
 		mdx_update_option( 'mdx_seo_des', htmlentities( stripslashes( $_POST['mdx_seo_des'] ) ) );
 		mdx_update_option( 'mdx_head_js', htmlentities( stripslashes( $_POST['mdx_head_js'] ) ) );
@@ -689,6 +690,14 @@ wp_enqueue_media();
             </tbody>
 
             <tbody class="mdx-admin-section" id="mdx-admin-nav-cdn-section">
+            <tr>
+                <th scope="row"><label for="mdx_gravatar_cdn"><?php _e( '使用 CDN 加载 Gravatar 头像', 'mdx' ); ?></label></th>
+                <td>
+                    <input type="text" name="mdx_gravatar_cdn" id="mdx_gravatar_cdn" 
+                            value="<?php echo esc_attr( mdx_get_option( 'mdx_gravatar_cdn' ) ) ?>" class="regular-text">
+                            <p class="description"><?php _e( '填写 Gravatar CDN 地址，【留空则不启用】，常用：</p><ul><li>七牛镜像源：<code>dn-qiniu-avatar.qbox.me/avatar/</code></li><li>loli:<code>gravatar.loli.net/avatar/</code></li><li>sep.cc:<code>cdn.sep.cc/avatar/</code></li><li>webp:<code>gravatar.webp.se/avatar/</code></li></ul>', 'mdx' ); ?>
+                </td>
+            </tr>
             <tr>
                 <th scope="row"><label for="mdx_use_cdn"><?php _e( '使用 CDN 加载前端主题文件', 'mdx' ); ?></label></th>
                 <td>
